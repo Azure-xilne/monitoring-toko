@@ -28,7 +28,7 @@ const queryClient = new QueryClient({
 })
 
 // Nanti akan diimport secara proper, ini placeholder sementara
-function Login() { return <div className="p-4">Halaman Login</div> }
+import Login from "./pages/auth/Login";
 function NotFound() { return <div className="p-4">404 Not Found</div> }
 
 createRoot(document.getElementById('root')!).render(
