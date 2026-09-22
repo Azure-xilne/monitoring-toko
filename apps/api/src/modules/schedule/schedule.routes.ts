@@ -5,7 +5,7 @@ import { requireAuth, requireRole } from '../../middlewares/auth';
 const router = Router();
 
 // GET /api/schedule - List all schedules
-router.get('/', requireAuth, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const { date, picId, page, limit } = req.query;
     const result = await scheduleService.getAll({
@@ -21,7 +21,7 @@ router.get('/', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/schedule/date/:date - Get schedules for a specific date
-router.get('/date/:date', requireAuth, async (req: Request, res: Response) => {
+router.get('/date/:date', async (req: Request, res: Response) => {
   try {
     const result = await scheduleService.getByDate(req.params.date);
     res.json(result);

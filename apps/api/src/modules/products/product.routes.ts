@@ -5,7 +5,7 @@ import { requireAuth, requireRole } from '../../middlewares/auth';
 const router = Router();
 
 // GET /api/products - List all products
-router.get('/', requireAuth, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const { search, category, page, limit } = req.query;
     const result = await productService.getAll({
@@ -21,7 +21,7 @@ router.get('/', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/products/categories - List all categories
-router.get('/categories', requireAuth, async (req: Request, res: Response) => {
+router.get('/categories', async (req: Request, res: Response) => {
   try {
     const result = await productService.getAllCategories();
     res.json(result);
@@ -41,7 +41,7 @@ router.post('/categories', requireAuth, requireRole('OWNER', 'ADMIN'), async (re
 });
 
 // GET /api/products/:id - Get product details
-router.get('/:id', requireAuth, async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const result = await productService.getById(req.params.id);
     if (!result) {

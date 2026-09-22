@@ -32,7 +32,7 @@ router.post('/shifts/end', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/sales/shifts/active - Get active shift for current user
-router.get('/shifts/active', requireAuth, async (req: Request, res: Response) => {
+router.get('/shifts/active', async (req: Request, res: Response) => {
   try {
     const user = (req as any).user;
     const result = await salesService.getActiveShift(user.id);
@@ -57,7 +57,7 @@ router.post('/', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/sales/history - View past sales
-router.get('/history', requireAuth, async (req: Request, res: Response) => {
+router.get('/history', async (req: Request, res: Response) => {
   try {
     const { date, cashierId, page, limit } = req.query;
     const result = await salesService.getHistory({
@@ -73,7 +73,7 @@ router.get('/history', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/sales/:id - Get sale detail with items
-router.get('/:id', requireAuth, async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const result = await salesService.getSaleById(req.params.id);
     if (!result) {

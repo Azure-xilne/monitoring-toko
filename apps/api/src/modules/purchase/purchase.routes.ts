@@ -5,7 +5,7 @@ import { requireAuth, requireRole } from '../../middlewares/auth';
 const router = Router();
 
 // GET /api/purchases/suppliers - List all suppliers
-router.get('/suppliers', requireAuth, async (req: Request, res: Response) => {
+router.get('/suppliers', async (req: Request, res: Response) => {
   try {
     const result = await purchaseService.getAllSuppliers();
     res.json(result);
@@ -25,7 +25,7 @@ router.post('/suppliers', requireAuth, requireRole('OWNER', 'ADMIN'), async (req
 });
 
 // GET /api/purchases - List purchase orders
-router.get('/', requireAuth, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const { page, limit } = req.query;
     const result = await purchaseService.getAllPOs({
@@ -39,7 +39,7 @@ router.get('/', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/purchases/:id - Get PO details with items
-router.get('/:id', requireAuth, async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const result = await purchaseService.getPOById(req.params.id);
     if (!result) {

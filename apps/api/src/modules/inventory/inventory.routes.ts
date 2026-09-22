@@ -5,7 +5,7 @@ import { requireAuth, requireRole } from '../../middlewares/auth';
 const router = Router();
 
 // GET /api/inventory - View current stock levels
-router.get('/', requireAuth, async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await inventoryService.getAll();
     res.json(result);
@@ -15,7 +15,7 @@ router.get('/', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/inventory/summary - Get stock summary counts
-router.get('/summary', requireAuth, async (req: Request, res: Response) => {
+router.get('/summary', async (req: Request, res: Response) => {
   try {
     const result = await inventoryService.getStockSummary();
     res.json(result);
@@ -25,7 +25,7 @@ router.get('/summary', requireAuth, async (req: Request, res: Response) => {
 });
 
 // GET /api/inventory/low-stock - Get items below minimum
-router.get('/low-stock', requireAuth, async (req: Request, res: Response) => {
+router.get('/low-stock', async (req: Request, res: Response) => {
   try {
     const result = await inventoryService.getLowStock();
     res.json(result);
@@ -49,7 +49,7 @@ router.post('/movement', requireAuth, requireRole('OWNER', 'ADMIN'), async (req:
 });
 
 // GET /api/inventory/movements - View stock movement history
-router.get('/movements', requireAuth, async (req: Request, res: Response) => {
+router.get('/movements', async (req: Request, res: Response) => {
   try {
     const { productId, page, limit } = req.query;
     const result = await inventoryService.getMovements({
