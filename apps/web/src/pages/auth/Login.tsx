@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { authClient } from '../../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import { Store, Loader2, AlertCircle } from 'lucide-react';
 
@@ -15,24 +14,17 @@ export default function Login() {
     setLoading(true);
     setError('');
 
-    try {
-      const { data, error } = await authClient.signIn.email({
-        email,
-        password,
-      });
-
-      if (error) {
-        setError(error.message || 'Login gagal, periksa email & password.');
+    // Simulasi loading jaringan
+    setTimeout(() => {
+      if (email === 'admin@toko.com' && password === 'password123') {
+        // Berhasil login
+        localStorage.setItem('auth_token', 'demo_token_123');
+        navigate('/dashboard');
+      } else {
+        setError('Email atau password salah.');
         setLoading(false);
-        return;
       }
-
-      // Login berhasil, arahkan ke dashboard
-      navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Terjadi kesalahan sistem.');
-      setLoading(false);
-    }
+    }, 1000);
   };
 
   return (

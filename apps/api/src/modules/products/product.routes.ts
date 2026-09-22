@@ -31,7 +31,7 @@ router.get('/categories', async (req: Request, res: Response) => {
 });
 
 // POST /api/products/categories - Create a category
-router.post('/categories', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/categories', async (req: Request, res: Response) => {
   try {
     const result = await productService.createCategory(req.body);
     res.status(201).json(result);
@@ -55,7 +55,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 // POST /api/products - Create a new product (Owner/Admin only)
-router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await productService.create(req.body);
     res.status(201).json(result);
@@ -65,7 +65,7 @@ router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request
 });
 
 // PUT /api/products/:id - Update product
-router.put('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const result = await productService.update(req.params.id, req.body);
     if (!result) {
@@ -79,7 +79,7 @@ router.put('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Reque
 });
 
 // DELETE /api/products/:id - Delete product
-router.delete('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const result = await productService.delete(req.params.id);
     if (!result) {

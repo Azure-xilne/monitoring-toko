@@ -31,7 +31,7 @@ router.get('/date/:date', async (req: Request, res: Response) => {
 });
 
 // POST /api/schedule - Create a new schedule
-router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await scheduleService.create(req.body);
     res.status(201).json(result);
@@ -41,7 +41,7 @@ router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request
 });
 
 // PUT /api/schedule/:id - Update schedule
-router.put('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const result = await scheduleService.update(req.params.id, req.body);
     if (!result) {
@@ -55,7 +55,7 @@ router.put('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Reque
 });
 
 // DELETE /api/schedule/:id - Delete schedule
-router.delete('/:id', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const result = await scheduleService.delete(req.params.id);
     if (!result) {

@@ -52475,9 +52475,9 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // apps/api/src/app.ts
-var import_express7 = __toESM(require_express2(), 1);
-var import_cors = __toESM(require_lib3(), 1);
-var import_dotenv2 = __toESM(require_main(), 1);
+var import_express7 = __toESM(require_express2());
+var import_cors = __toESM(require_lib3());
+var import_dotenv2 = __toESM(require_main());
 
 // node_modules/zod/v3/external.js
 var external_exports = {};
@@ -76318,7 +76318,7 @@ var auth = cd({
 });
 
 // apps/api/src/modules/products/product.routes.ts
-var import_express = __toESM(require_express2(), 1);
+var import_express = __toESM(require_express2());
 
 // node_modules/drizzle-orm/entity.js
 var entityKind = /* @__PURE__ */ Symbol.for("drizzle:entityKind");
@@ -81496,7 +81496,7 @@ var schedules = pgTable("schedules", {
 });
 
 // apps/api/src/config/db.ts
-var import_dotenv = __toESM(require_main(), 1);
+var import_dotenv = __toESM(require_main());
 import_dotenv.default.config();
 var pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -81549,45 +81549,6 @@ var ProductService = class {
 };
 var productService = new ProductService();
 
-// apps/api/src/middlewares/auth.ts
-async function requireAuth(req, res, next) {
-  const headers = new Headers();
-  for (const [key, value] of Object.entries(req.headers)) {
-    if (value) {
-      if (Array.isArray(value)) {
-        value.forEach((v3) => headers.append(key, v3));
-      } else {
-        headers.set(key, value);
-      }
-    }
-  }
-  try {
-    const session2 = await auth.api.getSession({
-      headers
-    });
-    if (!session2) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    }
-    req.user = session2.user;
-    req.session = session2.session;
-    next();
-  } catch (err) {
-    console.error("Session error:", err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-}
-function requireRole(...roles) {
-  return (req, res, next) => {
-    const user = req.user;
-    if (!user || !roles.includes(user.role)) {
-      res.status(403).json({ error: "Forbidden: insufficient permissions" });
-      return;
-    }
-    next();
-  };
-}
-
 // apps/api/src/modules/products/product.routes.ts
 var router = (0, import_express.Router)();
 router.get("/", async (req, res) => {
@@ -81612,7 +81573,7 @@ router.get("/categories", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch categories" });
   }
 });
-router.post("/categories", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router.post("/categories", async (req, res) => {
   try {
     const result = await productService.createCategory(req.body);
     res.status(201).json(result);
@@ -81632,7 +81593,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch product" });
   }
 });
-router.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const result = await productService.create(req.body);
     res.status(201).json(result);
@@ -81640,7 +81601,7 @@ router.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) =>
     res.status(500).json({ error: "Failed to create product" });
   }
 });
-router.put("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const result = await productService.update(req.params.id, req.body);
     if (!result) {
@@ -81652,7 +81613,7 @@ router.put("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) 
     res.status(500).json({ error: "Failed to update product" });
   }
 });
-router.delete("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const result = await productService.delete(req.params.id);
     if (!result) {
@@ -81667,7 +81628,7 @@ router.delete("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, re
 var product_routes_default = router;
 
 // apps/api/src/modules/inventory/inventory.routes.ts
-var import_express2 = __toESM(require_express2(), 1);
+var import_express2 = __toESM(require_express2());
 
 // apps/api/src/modules/inventory/inventory.service.ts
 var InventoryService = class {
@@ -81744,7 +81705,7 @@ router2.get("/low-stock", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch low stock items" });
   }
 });
-router2.post("/movement", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router2.post("/movement", async (req, res) => {
   try {
     const user = req.user;
     const result = await inventoryService.recordMovement({
@@ -81772,7 +81733,7 @@ router2.get("/movements", async (req, res) => {
 var inventory_routes_default = router2;
 
 // apps/api/src/modules/purchase/purchase.routes.ts
-var import_express3 = __toESM(require_express2(), 1);
+var import_express3 = __toESM(require_express2());
 
 // apps/api/src/modules/purchase/purchase.service.ts
 var PurchaseService = class {
@@ -81848,7 +81809,7 @@ router3.get("/suppliers", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch suppliers" });
   }
 });
-router3.post("/suppliers", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router3.post("/suppliers", async (req, res) => {
   try {
     const result = await purchaseService.createSupplier(req.body);
     res.status(201).json(result);
@@ -81880,7 +81841,7 @@ router3.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch purchase order" });
   }
 });
-router3.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router3.post("/", async (req, res) => {
   try {
     const result = await purchaseService.createPO(req.body);
     res.status(201).json(result);
@@ -81888,7 +81849,7 @@ router3.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) =
     res.status(500).json({ error: "Failed to create purchase order" });
   }
 });
-router3.post("/:id/receive", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router3.post("/:id/receive", async (req, res) => {
   try {
     const result = await purchaseService.receivePO(req.params.id);
     if (!result) {
@@ -81903,7 +81864,7 @@ router3.post("/:id/receive", requireAuth, requireRole("OWNER", "ADMIN"), async (
 var purchase_routes_default = router3;
 
 // apps/api/src/modules/sales/sales.routes.ts
-var import_express4 = __toESM(require_express2(), 1);
+var import_express4 = __toESM(require_express2());
 
 // apps/api/src/modules/sales/sales.service.ts
 var SalesService = class {
@@ -81970,7 +81931,7 @@ var salesService = new SalesService();
 
 // apps/api/src/modules/sales/sales.routes.ts
 var router4 = (0, import_express4.Router)();
-router4.post("/shifts/start", requireAuth, async (req, res) => {
+router4.post("/shifts/start", async (req, res) => {
   try {
     const user = req.user;
     const { startingCash } = req.body;
@@ -81980,7 +81941,7 @@ router4.post("/shifts/start", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to start shift" });
   }
 });
-router4.post("/shifts/end", requireAuth, async (req, res) => {
+router4.post("/shifts/end", async (req, res) => {
   try {
     const { shiftId, endingCash } = req.body;
     const result = await salesService.endShift(shiftId, endingCash || 0);
@@ -82002,7 +81963,7 @@ router4.get("/shifts/active", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch active shift" });
   }
 });
-router4.post("/", requireAuth, async (req, res) => {
+router4.post("/", async (req, res) => {
   try {
     const user = req.user;
     const result = await salesService.createSale({
@@ -82043,7 +82004,7 @@ router4.get("/:id", async (req, res) => {
 var sales_routes_default = router4;
 
 // apps/api/src/modules/schedule/schedule.routes.ts
-var import_express5 = __toESM(require_express2(), 1);
+var import_express5 = __toESM(require_express2());
 
 // apps/api/src/modules/schedule/schedule.service.ts
 var ScheduleService = class {
@@ -82104,7 +82065,7 @@ router5.get("/date/:date", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch schedules for date" });
   }
 });
-router5.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router5.post("/", async (req, res) => {
   try {
     const result = await scheduleService.create(req.body);
     res.status(201).json(result);
@@ -82112,7 +82073,7 @@ router5.post("/", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) =
     res.status(500).json({ error: "Failed to create schedule" });
   }
 });
-router5.put("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router5.put("/:id", async (req, res) => {
   try {
     const result = await scheduleService.update(req.params.id, req.body);
     if (!result) {
@@ -82124,7 +82085,7 @@ router5.put("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res)
     res.status(500).json({ error: "Failed to update schedule" });
   }
 });
-router5.delete("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, res) => {
+router5.delete("/:id", async (req, res) => {
   try {
     const result = await scheduleService.delete(req.params.id);
     if (!result) {
@@ -82139,7 +82100,7 @@ router5.delete("/:id", requireAuth, requireRole("OWNER", "ADMIN"), async (req, r
 var schedule_routes_default = router5;
 
 // apps/api/src/modules/reports/report.routes.ts
-var import_express6 = __toESM(require_express2(), 1);
+var import_express6 = __toESM(require_express2());
 
 // apps/api/src/modules/reports/report.service.ts
 var ReportService = class {
@@ -82221,6 +82182,45 @@ var ReportService = class {
   }
 };
 var reportService = new ReportService();
+
+// apps/api/src/middlewares/auth.ts
+async function requireAuth(req, res, next) {
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach((v3) => headers.append(key, v3));
+      } else {
+        headers.set(key, value);
+      }
+    }
+  }
+  try {
+    const session2 = await auth.api.getSession({
+      headers
+    });
+    if (!session2) {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+    req.user = session2.user;
+    req.session = session2.session;
+    next();
+  } catch (err) {
+    console.error("Session error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+function requireRole(...roles) {
+  return (req, res, next) => {
+    const user = req.user;
+    if (!user || !roles.includes(user.role)) {
+      res.status(403).json({ error: "Forbidden: insufficient permissions" });
+      return;
+    }
+    next();
+  };
+}
 
 // apps/api/src/modules/reports/report.routes.ts
 var router6 = (0, import_express6.Router)();

@@ -5,7 +5,7 @@ import { requireAuth, requireRole } from '../../middlewares/auth';
 const router = Router();
 
 // POST /api/sales/shifts/start - Open a new cashier shift
-router.post('/shifts/start', requireAuth, async (req: Request, res: Response) => {
+router.post('/shifts/start', async (req: Request, res: Response) => {
   try {
     const user = (req as any).user;
     const { startingCash } = req.body;
@@ -17,7 +17,7 @@ router.post('/shifts/start', requireAuth, async (req: Request, res: Response) =>
 });
 
 // POST /api/sales/shifts/end - Close current shift
-router.post('/shifts/end', requireAuth, async (req: Request, res: Response) => {
+router.post('/shifts/end', async (req: Request, res: Response) => {
   try {
     const { shiftId, endingCash } = req.body;
     const result = await salesService.endShift(shiftId, endingCash || 0);
@@ -43,7 +43,7 @@ router.get('/shifts/active', async (req: Request, res: Response) => {
 });
 
 // POST /api/sales - Process a new sale transaction
-router.post('/', requireAuth, async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const user = (req as any).user;
     const result = await salesService.createSale({

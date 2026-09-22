@@ -35,7 +35,7 @@ router.get('/low-stock', async (req: Request, res: Response) => {
 });
 
 // POST /api/inventory/movement - Record a manual stock adjustment
-router.post('/movement', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/movement', async (req: Request, res: Response) => {
   try {
     const user = (req as any).user;
     const result = await inventoryService.recordMovement({

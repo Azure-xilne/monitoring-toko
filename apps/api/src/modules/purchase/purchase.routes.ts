@@ -15,7 +15,7 @@ router.get('/suppliers', async (req: Request, res: Response) => {
 });
 
 // POST /api/purchases/suppliers - Create supplier
-router.post('/suppliers', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/suppliers', async (req: Request, res: Response) => {
   try {
     const result = await purchaseService.createSupplier(req.body);
     res.status(201).json(result);
@@ -53,7 +53,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 // POST /api/purchases - Create a new PO
-router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await purchaseService.createPO(req.body);
     res.status(201).json(result);
@@ -63,7 +63,7 @@ router.post('/', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request
 });
 
 // POST /api/purchases/:id/receive - Mark PO as completed and update inventory
-router.post('/:id/receive', requireAuth, requireRole('OWNER', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/:id/receive', async (req: Request, res: Response) => {
   try {
     const result = await purchaseService.receivePO(req.params.id);
     if (!result) {
