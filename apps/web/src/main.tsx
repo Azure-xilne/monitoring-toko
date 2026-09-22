@@ -48,6 +48,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="purchase-orders" element={<PurchaseOrders />} />
           <Route path="sales" element={<SalesHistory />} />
           <Route path="schedule" element={<Schedule />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="reports/profit-loss" element={<ProfitLossReport />} />
         </Route>
 
