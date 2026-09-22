@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Tag, Trash2, CreditCard, Wallet, Banknote, PauseCircle } from 'lucide-react';
+import { Search, Tag, Trash2, CreditCard, Wallet, Banknote, PauseCircle, ShoppingCart } from 'lucide-react';
 
 // Data Dummy Sama Seperti di Produk
 const products = [
@@ -210,7 +210,7 @@ export default function POS() {
               <Tag className="w-4 h-4 mr-2" /> Diskon
             </button>
             <button className="py-2.5 bg-white border border-slate-300 text-amber-600 rounded-xl font-semibold hover:bg-amber-50 flex items-center justify-center shadow-sm">
-              <PauseCircle className="w-4 h-4 mr-2" /> Hold (3)
+              <PauseCircle, ShoppingCart className="w-4 h-4 mr-2" /> Hold (3)
             </button>
           </div>
 
