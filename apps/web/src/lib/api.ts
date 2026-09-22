@@ -1,16 +1,22 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://monitoring-toko-api.vercel.app/api',
-  withCredentials: true, // Required for better-auth to send session cookies
+  baseURL: 'https://monitoring-toko-api.vercel.app',
+  withCredentials: true,
 });
 
-// Interceptor to handle global errors (e.g., 401 Unauthorized)
+api.interceptors.request.use((config) => {
+  // Pastikan semua request selalu memiliki awalan /api
+  if (config.url && !config.url.startsWith('/api')) {
+    config.url = '/api' + (config.url.startsWith('/') ? '' : '/') + config.url;
+  }
+  return config;
+});
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Optional: Handle unauthorized state globally
       console.warn('Unauthorized access. Please login.');
     }
     return Promise.reject(error);
