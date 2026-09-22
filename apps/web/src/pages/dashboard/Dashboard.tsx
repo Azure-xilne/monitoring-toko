@@ -4,7 +4,8 @@ import {
   Package, 
   AlertTriangle,
   Calendar,
-  ChevronRight
+  ChevronRight,
+  Download
 } from 'lucide-react';
 import { 
   LineChart, 
@@ -31,9 +32,19 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Header Welcome */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800">Selamat Pagi, Ahmad 👋</h1>
-        <p className="text-slate-500">Berikut adalah ringkasan toko Anda hari ini, 21 Sep 2026.</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">Selamat Pagi, Ahmad 👋</h1>
+          <p className="text-slate-500">Berikut adalah ringkasan toko Anda hari ini, 21 Sep 2026.</p>
+        </div>
+        <a 
+          href="/monitoring-toko.apk" 
+          download="monitoring-toko.apk"
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm"
+        >
+          <Download className="w-4 h-4" />
+          <span>Download Aplikasi</span>
+        </a>
       </div>
 
       {/* Summary Cards */}
