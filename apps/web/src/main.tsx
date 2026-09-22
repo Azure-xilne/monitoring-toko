@@ -14,6 +14,7 @@ import Stock from './pages/stock/Stock'
 import PurchaseOrders from './pages/purchase/PurchaseOrders'
 import SalesHistory from './pages/sales/SalesHistory'
 import Schedule from './pages/schedule/Schedule'
+import Settings from './pages/settings/Settings'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
